@@ -8,12 +8,20 @@ import Header from "../components/Header.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate } = Astro.props;
+const heroImage = "https://t-log.pages.dev/src/assets/heroImage.avif";
 ---
 
 <html lang="ja">
 	<head>
 		<BaseHead title={title} description={description} />
+
+		<meta property="og:image" content={heroImage} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="article" />
+		<meta property="og:site_name" content="t-log" />
+
 		<style>
 			main {
 				width: calc(100% - 2em);
@@ -59,7 +67,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
+				<!-- <div class="hero-image">
 					{
 						heroImage && (
 							<Image
@@ -70,7 +78,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 							/>
 						)
 					}
-				</div>
+				</div> -->
 				<div class="prose">
 					<div class="title">
 						<div class="date">
