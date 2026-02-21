@@ -1,0 +1,19 @@
+---
+title: "GitHubのcontributionsが反映されていない問題を解決した"
+pubDate: 2026-02-21
+description: ""
+tags: ["GitHub", "開発"]
+---
+
+# GitHub緑化計画
+最近はブログの更新のために毎日GitHubを使っているのに、なぜかプロフィールのコントリビューション・カレンダーがスカスカの状態だった。
+リポジトリのコミット履歴を確認したところ、コントリビューターの名前がGitHubアカウントではなく僕のPCの名前になっていた。
+そのため以下のコマンドでGitHubアカウントとの紐づけを行った。
+
+``` bash
+git config --global user.name "name"
+git config --global user.email "address"
+```
+
+これで更新履歴がちゃんと記録されるようになった。カレンダーを一面緑化できるように頑張りたい。
+
