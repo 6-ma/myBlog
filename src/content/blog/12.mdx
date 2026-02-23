@@ -1,0 +1,21 @@
+---
+title: "Android Studioを導入した"
+pubDate: 2026-02-23
+description: ""
+tags: ["Kotlin", "開発"]
+---
+
+# AIとスマホアプリ作成
+
+GoogleのAndroid開発用の公式IDE、Android Studio Panda 1をインストールした。環境構築は簡単で、インストーラーの指示に従うだけだ。
+これ一つでアプリの作成->ビルド->シミュレートができ、AIコーディングアシスタントも搭載されているなど敷居が低いのがありがたい。
+
+Googleアカウントと連携したのち、規約への同意等を済ませるとGeminiが使えるようになった。とりあえず作ってみたのが以下のアプリだ。
+
+![為替アプリ](https://pub-e6ff8f38dbb24bb0bef4e304eb94a5de.r2.dev/exchangeApp.avif)
+
+上の入力欄に為替レート、下の入力欄に商品の値段を書くと、日本円でいくらになるのか求めることができる。
+
+アプリをビルドすると"\app\build\outputs\apk\debug\app-debug.apk"の場所にAPKファイルが生成され、それをAndroidデバイスに共有しインストールすることで実際に使用できるようになった。
+
+このとき、"\app\build\outputs\apk\androidTest\debug\app-debug-androidTest.apk"のファイルと間違えてしまい起動できなかったので、注意が必要だ。
