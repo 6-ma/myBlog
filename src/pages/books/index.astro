@@ -36,32 +36,25 @@ const books = lines.slice(1).map((line) => {
 			<div style="margin-left: 2rem;">
 				{
 					books.map((book) => (
-						<>
-							{/* <img
-								src={`https://ndlsearch.ndl.go.jp/thumbnail/${book.isbn}.jpg`}
+						<div style="display: flex; align-items: flex-start; margin-bottom: 2rem;">
+							<img
+								src={`https://books.google.com/books/content?vid=ISBN${book.ISBN}&printsec=frontcover&img=1&zoom=1`}
 								alt={book.title}
 								width="100"
 								height="150"
-							/> */}
-							<div style="margin-bottom: 2rem;">
-								<h2>・{book.title} </h2>
+							/>
+							<div style="margin-bottom: 2rem; margin-left: 2rem;">
+								<h2>{book.title} </h2>
 								<p style="margin-left: 2rem;">
 									著者: {book.author}
 								</p>
 								<p style="margin-left: 2rem;">{book.comment}</p>
 							</div>
-						</>
+						</div>
 					))
 				}
 			</div>
-			<p>
-				表紙画像は国立国会図書館サーチの書影APIから取得しており、出版情報登録センターから提供されたものです。<br
-				/>ライセンスは<a
-					href="https://creativecommons.org/licenses/by/4.0/deed.ja"
-					>クリエイティブ・コモンズ 表示 4.0 国際
-					パブリック・ライセンス</a
-				>です。
-			</p>
+			<p>表紙画像はGoogle Booksから取得しています。</p>
 		</main>
 
 		<Footer />
