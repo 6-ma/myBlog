@@ -120,7 +120,7 @@ p {
 	margin-bottom: 2em;
 }
 
-.prose img {
+.prose img:not(.remark-link-card-plus__favicon):not(.remark-link-card-plus__image) {
 	max-width: 100%;
 	max-height: 360px;
 	object-fit: contain;
@@ -217,4 +217,142 @@ hr {
 	clip-path: inset(50%);
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
+}
+
+/* ============================================================
+   remark-link-card-plus スタイル
+   サイトの CSS 変数（global.css の :root）と合わせて調整すること:
+     --accent        : リンクカラー・ボーダー強調色
+     --gray          : シャドウ用グレー
+     --gray-light    : ボーダー・背景色
+     --gray-dark     : テキストカラー
+     --box-shadow    : カード影
+   ============================================================ */
+
+/* ---- コンテナ: カードを段落と同じ間隔で配置 ---- */
+.remark-link-card-plus__container {
+	margin: 1.5em 0;
+}
+
+/* ---- カード本体: リンク要素をカード風に見せる ---- */
+.remark-link-card-plus__card {
+	display: flex;
+	text-decoration: none;
+	color: inherit;
+	border: 1px solid rgb(var(--gray-light));
+	border-radius: 8px;
+	overflow: hidden;
+	transition: box-shadow 0.2s ease, border-color 0.2s ease;
+	background: #fff;
+}
+
+/* ホバー時: アクセントカラーのボーダー＋影 */
+.remark-link-card-plus__card:hover {
+	border-color: var(--accent);
+	box-shadow: var(--box-shadow);
+}
+
+/* ---- メイン領域: テキスト情報（左側） ---- */
+.remark-link-card-plus__main {
+	flex: 1;
+	min-width: 0;
+	/* flex 子要素のテキスト折り返し保証 */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 0.9em 1.1em;
+	gap: 0.5em;
+}
+
+/* ---- コンテンツ: タイトル＋説明文 ---- */
+.remark-link-card-plus__content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.3em;
+}
+
+/* タイトル: 読みやすく太字、長い場合は 2 行で省略 */
+.remark-link-card-plus__title {
+	font-size: 0.9em;
+	font-weight: 700;
+	color: rgb(var(--gray-dark));
+	line-height: 1.4;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	line-clamp: 2;
+	overflow: hidden;
+}
+
+/* ホバー時にタイトルをアクセントカラーに */
+.remark-link-card-plus__card:hover .remark-link-card-plus__title {
+	color: var(--accent);
+}
+
+/* 説明文: 控えめなグレー、1 行で省略 */
+.remark-link-card-plus__description {
+	font-size: 0.75em;
+	color: rgb(var(--gray));
+	line-height: 1.4;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	line-clamp: 1;
+	overflow: hidden;
+}
+
+/* ---- メタ情報: ファビコン＋URL（カード下部、左寄せ） ---- */
+.remark-link-card-plus__meta {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.3em; /* ファビコンと URL を近づける */
+}
+
+/* ファビコン: URL のすぐ左に配置、丸みなし */
+.remark-link-card-plus__favicon {
+	width: 14px;
+	height: 14px;
+	border-radius: 2px;
+	flex-shrink: 0;
+}
+
+/* URL テキスト: 控えめなグレー、長い場合は省略 */
+.remark-link-card-plus__url {
+	font-size: 0.7em;
+	color: rgb(var(--gray));
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* ---- サムネイル: カード右側の OGP 画像 ---- */
+/* 画像読み込み失敗時は JS (BlogPost.astro) で display:none を付与 */
+.remark-link-card-plus__thumbnail {
+	/* 16:9 比率の画像幅: 160px → 高さ約 90px */
+	width: 160px;
+	flex-shrink: 0;
+	overflow: hidden;
+	background: rgb(var(--gray-light));
+}
+
+/* 画像: 一般的な OGP ヒーロー比率 16:9 に固定 */
+.remark-link-card-plus__image {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-radius: 0; /* カードの角丸で十分なためリセット */
+	display: block;
+}
+
+/* ---- レスポンシブ: モバイル（720px 以下）ではサムネイルを非表示 ---- */
+@media (max-width: 720px) {
+	.remark-link-card-plus__thumbnail,
+	.remark-link-card-plus__thumbnail:has(img[src]:not([src=""])) {
+		display: none;
+	}
+
+	.remark-link-card-plus__main {
+		padding: 0.75em 0.9em;
+	}
 }

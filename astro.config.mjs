@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import astroExpressiveCode from 'astro-expressive-code';
+import remarkLinkCard from 'remark-link-card-plus';
 
 import starlight from '@astrojs/starlight';
 
@@ -38,4 +39,14 @@ export default defineConfig({
 			title: 't-log'
 		}),
 	],
+	markdown: {
+		remarkPlugins: [
+			[
+				remarkLinkCard,
+				{
+					cache: true,
+				},
+			],
+		],
+	},
 });

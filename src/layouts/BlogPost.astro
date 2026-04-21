@@ -118,6 +118,15 @@ const { title, description, pubDate, updatedDate, tags } = Astro.props;
 						<hr />
 					</div>
 					<slot />
+					<script is:inline>
+						/* リンクカード: OGP 画像の読み込み失敗時にサムネイル欄を非表示 */
+						document.querySelectorAll('.remark-link-card-plus__image').forEach(function(img) {
+							img.addEventListener('error', function() {
+								var thumbnail = img.closest('.remark-link-card-plus__thumbnail');
+								if (thumbnail) thumbnail.style.display = 'none';
+							});
+						});
+					</script>
 					<div class="giscus-wrapper">
 						<script is:inline src="https://giscus.app/client.js"
 							data-repo="t3pg/myBlog"
