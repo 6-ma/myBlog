@@ -5,17 +5,28 @@ import Video from "../../components/Video.astro";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("blog");
-	return posts.map((post) => ({
+	const num = (post: CollectionEntry<"blog">) =>
+		parseInt(post.id.split("/").pop()!);
+	const sorted = [...posts].sort((a, b) => num(a) - num(b));
+	return sorted.map((post, index) => ({
 		params: { slug: post.id.split("/").pop() },
-		props: post,
+		props: {
+			post,
+			prev: index > 0 ? sorted[index - 1] : undefined,
+			next: index < sorted.length - 1 ? sorted[index + 1] : undefined,
+		},
 	}));
 }
-type Props = CollectionEntry<"blog">;
+type Props = {
+	post: CollectionEntry<"blog">;
+	prev?: CollectionEntry<"blog">;
+	next?: CollectionEntry<"blog">;
+};
 
-const post = Astro.props;
+const { post, prev, next } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} prev={prev} next={next}>
 	<Content components={{ Video }} />
 </BlogPost>
